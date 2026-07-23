@@ -4,7 +4,9 @@ layout: default
 
 <h1>VVVZ Blog</h1>
 <p>ようこそ！</p>
-
+<div class="counter-box">
+    あなたは <span id="visit-count" class="counter-num">---</span> 番目の訪問者です
+  </div>
 <hr>
 
 <h2>きじいちらん</h2>
@@ -16,3 +18,18 @@ layout: default
     </li>
   {% endfor %}
 </ul>
+
+<script>
+  // 今すぐ動くCounterAPI（登録なし・無料）
+  // "vvvz-blog" の部分は好きな識別名でOKです！
+  fetch('https://counterapi.dev/v1/yuichan/visits/up')
+    .then(res => res.json())
+    .then(data => {
+      // カウント数を画面にセット（ゼロ埋めして6桁っぽく見せる演出付き）
+      const count = String(data.count).padStart(6, '0');
+      document.getElementById('visit-count').innerText = count;
+    })
+    .catch(err => {
+      document.getElementById('visit-count').innerText = "000001";
+    });
+</script>
